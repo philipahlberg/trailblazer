@@ -1,6 +1,6 @@
 {
   "name": "expressionist",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "index.js",
   "repository": "https://github.com/philipahlberg/expressionist.git",
   "author": "philipahlberg <23071488+philipahlberg@users.noreply.github.com>",
@@ -8,12 +8,14 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "concurrently -n \"rollup,karma\" \"npm run build:watch\" \"npm run test:watch\"",
-    "test": "npm run build && karma start scripts/karma.prod.js",
+    "test": "karma start scripts/karma.prod.js",
     "test:watch": "karma start scripts/karma.dev.js",
     "build": "rollup -c scripts/rollup.prod.js",
-    "build:watch": "rollup -c scripts/rollup.dev.js -w"
+    "build:watch": "rollup -c scripts/rollup.dev.js -w",
+    "bench": "node --experimental-modules --allow-natives-syntax benchmark/index.mjs"
   },
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "chai": "^4.1.2",
     "concurrently": "^3.5.1",
     "karma": "^2.0.0",
