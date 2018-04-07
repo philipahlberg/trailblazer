@@ -28,6 +28,11 @@ describe('compile', () => {
       const { pattern } = compile('/abc');
       expect(pattern.test('/abc#hash')).to.be.true;
     });
+
+    it('ignores both query and hash', () => {
+      const { pattern } = compile('/abc');
+      expect(pattern.test('/abc?q=123#hash'));
+    });
   });
 
   describe('keys', () => {

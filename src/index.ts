@@ -1,9 +1,6 @@
-const MATCH_ALL = '[^/]*';
+const MATCH_ALL = '[^/?#]*';
 
-const CATCH_ALL = '([^/]+)';
-
-// matches ':param' and captures 'param'
-const PARAMETER_PATTERN = /:([^\/]+)/;
+const CATCH_ALL = '([^/?#]+)';
 
 // optional trailing slash
 // only matches the slash if nothing follows
@@ -11,6 +8,9 @@ const MATCH_TRAILING_SLASH = '(?:[\/]?(?=$))?';
 
 // implements '**' as a wildcard
 const WILDCARD_PATTERN = /\*\*/g;
+
+// matches ':param' and captures 'param'
+const PARAMETER_PATTERN = /:([^\/]+)/;
 
 export interface Compiled {
   pattern: RegExp;
@@ -24,15 +24,15 @@ export function compile (
   path = (path.split('#')[0] || '').split('?')[0];
   path = path.replace(WILDCARD_PATTERN, MATCH_ALL);
   let keys: string[] = [];
+  let match: RegExpExecArray | null;
 
   // convert :param to a catch-all group
   // and save the keys
-  while (PARAMETER_PATTERN.test(path)) {
-    const match = PARAMETER_PATTERN.exec(path);
-    // match[0] is the entire declaration, e. g. ':param'
-    path = path.replace(match![0], CATCH_ALL);
-    // match[1] is the name of the parameter, e. g. 'param'
-    keys.push(match![1]);
+  while ((match = PARAMETER_PATTERN.exec(path)) != null) {
+    // match[0] is the entire segment, e. g. ':name'
+    path = path.replace(match[0], CATCH_ALL);
+    // match[1] is just the name of the parameter, e. g. 'name'
+    keys.push(match[1]);
   }
 
   if (!/\/?/.test(path)) {
@@ -55,6 +55,8 @@ export interface Executed {
   [key: string]: string;
 }
 
+type Dictionary<T> = { [key: string]: T };
+
 export function execute (
   compiled: Compiled,
   path: string
@@ -62,7 +64,7 @@ export function execute (
   const pattern = compiled.pattern;
   const keys = compiled.keys;
   const values = (pattern.exec(path) || []).slice(1);
-  return keys.reduce((acc: { [key: string]: string }, key, i) => {
+  return keys.reduce((acc: Dictionary<string>, key, i) => {
     acc[key] = values[i];
     return acc;
   }, {});

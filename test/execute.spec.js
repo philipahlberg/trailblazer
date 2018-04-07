@@ -20,4 +20,19 @@ describe('execute', () => {
     const p = execute(compile('/:a/:b/:c'), '/1/2/3');
     expect(p).to.deep.equal({ a: '1', b: '2', c: '3' });
   });
+
+  it('ignores query', () => {
+    const p = execute(compile('/:a/:b/:c'), '/1/2/3?q=123');
+    expect(p).to.deep.equal({ a: '1', b: '2', c: '3' });
+  });
+
+  it('ignores hash', () => {
+    const p = execute(compile('/:a/:b/:c'), '/1/2/3#hash');
+    expect(p).to.deep.equal({ a: '1', b: '2', c: '3' });
+  });
+
+  it('ignores both query and hash', () => {
+    const p = execute(compile('/:a/:b/:c'), '/1/2/3?q=123#hash');
+    expect(p).to.deep.equal({ a: '1', b: '2', c: '3' });
+  });
 });
