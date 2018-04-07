@@ -2,13 +2,13 @@ const MATCH_ALL = '[^/?#]*';
 const CATCH_ALL = '([^/?#]+)';
 // optional trailing slash
 // only matches the slash if nothing follows
-const MATCH_TRAILING_SLASH = '(?:[\/]?(?=$))?';
+const MATCH_TRAILING_SLASH = '(?:[/]?(?=$))?';
 // implements '**' as a wildcard
 const WILDCARD_PATTERN = /\*\*/g;
 // matches ':param' and captures 'param'
 const PARAMETER_PATTERN = /:([^\/]+)/;
-function compile(path, exact = false) {
-    path = (path.split('#')[0] || '').split('?')[0];
+const compile = (path, exact = false) => {
+    path = (path.split("#")[0] || "").split("?")[0];
     path = path.replace(WILDCARD_PATTERN, MATCH_ALL);
     let keys = [];
     let match;
@@ -32,15 +32,10 @@ function compile(path, exact = false) {
         pattern,
         keys
     };
-}
-function execute(compiled, path) {
-    const pattern = compiled.pattern;
-    const keys = compiled.keys;
-    const values = (pattern.exec(path) || []).slice(1);
-    return keys.reduce((acc, key, i) => {
-        acc[key] = values[i];
-        return acc;
-    }, {});
-}
+};
+const execute = (compiled, path) => {
+    const values = (compiled.pattern.exec(path) || []).slice(1);
+    return compiled.keys.reduce((acc, key, i) => (acc[key] = values[i], acc), {});
+};
 
 export { compile, execute };

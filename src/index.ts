@@ -4,7 +4,7 @@ const CATCH_ALL = '([^/?#]+)';
 
 // optional trailing slash
 // only matches the slash if nothing follows
-const MATCH_TRAILING_SLASH = '(?:[\/]?(?=$))?';
+const MATCH_TRAILING_SLASH = '(?:[/]?(?=$))?';
 
 // implements '**' as a wildcard
 const WILDCARD_PATTERN = /\*\*/g;
@@ -17,11 +17,11 @@ export interface Compiled {
   keys: string[];
 }
 
-export function compile (
+export const compile = (
   path: string,
   exact: boolean = false
-): Compiled {
-  path = (path.split('#')[0] || '').split('?')[0];
+): Compiled => {
+  path = (path.split("#")[0] || "").split("?")[0];
   path = path.replace(WILDCARD_PATTERN, MATCH_ALL);
   let keys: string[] = [];
   let match: RegExpExecArray | null;
@@ -48,7 +48,7 @@ export function compile (
   return {
     pattern,
     keys
-  }
+  };
 }
 
 export interface Executed {
@@ -57,15 +57,13 @@ export interface Executed {
 
 type Dictionary<T> = { [key: string]: T };
 
-export function execute (
+export const execute = (
   compiled: Compiled,
   path: string
-): Executed {
-  const pattern = compiled.pattern;
-  const keys = compiled.keys;
-  const values = (pattern.exec(path) || []).slice(1);
-  return keys.reduce((acc: Dictionary<string>, key, i) => {
-    acc[key] = values[i];
-    return acc;
-  }, {});
+): Executed => {
+  const values = (compiled.pattern.exec(path) || []).slice(1);
+  return compiled.keys.reduce(
+    (acc: Dictionary<string>, key, i) => ((acc[key] = values[i]), acc),
+    {}
+  );
 }
