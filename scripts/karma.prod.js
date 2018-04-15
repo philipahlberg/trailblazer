@@ -6,7 +6,15 @@ module.exports = (config) => {
       { pattern: 'dist/index.js', type: 'module' },
       { pattern: 'test/*.spec.js', type: 'module' }
     ],
-    browsers: ['ChromeHeadless'],
+    browsers: ['ChromeHeadless', 'Edge', 'FirefoxESM'],
+    customLaunchers: {
+      FirefoxESM: {
+        base: 'Firefox',
+        prefs: {
+          'dom.moduleScripts.enabled': true
+        }
+      }
+    },
     reporters: ['progress'],
     port: 1234,
     colors: true,
