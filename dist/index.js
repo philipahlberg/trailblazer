@@ -6,36 +6,61 @@ const MATCH_TRAILING_SLASH = '(?:[/]?(?=$))?';
 // implements '**' as a wildcard
 const WILDCARD_PATTERN = /\*\*/g;
 // matches ':param' and captures 'param'
-const PARAMETER_PATTERN = /:([^\/]+)/;
-const compile = (path, exact = false) => {
-    path = (path.split("#")[0] || "").split("?")[0];
-    path = path.replace(WILDCARD_PATTERN, MATCH_ALL);
+const PARAMETER_PATTERN = /:([^\/?#]+)/g;
+const parse = (path) => {
     let keys = [];
     let match;
-    // convert :param to a catch-all group
-    // and save the keys
     while ((match = PARAMETER_PATTERN.exec(path)) != null) {
-        // match[0] is the entire segment, e. g. ':name'
-        path = path.replace(match[0], CATCH_ALL);
-        // match[1] is just the name of the parameter, e. g. 'name'
         keys.push(match[1]);
     }
-    if (!/\/?/.test(path)) {
-        path += MATCH_TRAILING_SLASH;
-    }
-    path = '^' + path;
-    if (exact) {
-        path += '$';
-    }
-    const pattern = new RegExp(path, 'i');
-    return {
-        pattern,
-        keys
-    };
+    return keys;
 };
-const execute = (compiled, path) => {
-    const values = (compiled.pattern.exec(path) || []).slice(1);
-    return compiled.keys.reduce((acc, key, i) => (acc[key] = values[i], acc), {});
+const compile = (path, exact = false) => (new RegExp('^' +
+    path
+        // Remove hash
+        .split('#')[0]
+        // Remove query
+        .split('?')[0]
+        // Replace '**' with a matching group
+        .replace(WILDCARD_PATTERN, MATCH_ALL)
+        // Replace ':key' with a catching group
+        .replace(PARAMETER_PATTERN, CATCH_ALL)
+    // Match an optional trailing slash
+    + MATCH_TRAILING_SLASH
+    // If exact, only match completely
+    + (exact ? '$' : ''), 'i'));
+/**
+ * Retrieve the values embedded in a live path.
+ * @param pattern The pattern returned from `compile`
+ * @param path The live path
+ */
+const execute = (pattern, path) => ((pattern.exec(path) || []).slice(1));
+const zip = (a, b) => (a.map((v, i) => [v, b[i]]));
+/**
+ * Convert an array of keys and an array of values into a Map.
+ * @param keys The keys returned from `parse`
+ * @param values The values returned from `execute`
+ */
+const map = (keys, values) => (new Map(zip(keys, values)));
+/**
+ * Convert an array of keys and an array of values into a plain object.
+ * @param keys The keys returned from `parse`
+ * @param values The values returned from `execute`
+ */
+const object = (keys, values) => (keys.reduce((acc, key, i) => {
+    acc[key] = values[i];
+    return acc;
+}, {}));
+/**
+ * Parse and compile a path to a function that extracts values from a given string.
+ * @param path Any path
+ * @param exact Execute on complete matches
+ */
+const program = (path, reducer = object, exact = false) => {
+    const keys = parse(path);
+    const pattern = compile(path, exact);
+    return (str) => reducer(keys, execute(pattern, str));
 };
 
-export { compile, execute };
+export default program;
+export { parse, compile, execute, map, object, program };
