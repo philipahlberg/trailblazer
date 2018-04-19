@@ -10,60 +10,109 @@ const MATCH_TRAILING_SLASH = '(?:[/]?(?=$))?';
 const WILDCARD_PATTERN = /\*\*/g;
 
 // matches ':param' and captures 'param'
-const PARAMETER_PATTERN = /:([^\/]+)/;
+const PARAMETER_PATTERN = /:([^\/?#]+)/g;
 
-export interface Compiled {
-  pattern: RegExp;
-  keys: string[];
+export const parse = (
+  path: string
+): string[] => {
+  let keys: string[] = [];
+  let match;
+  while ((match = PARAMETER_PATTERN.exec(path)) != null) {
+    keys.push(match[1]);
+  }
+  return keys;
 }
 
 export const compile = (
   path: string,
   exact: boolean = false
-): Compiled => {
-  path = (path.split("#")[0] || "").split("?")[0];
-  path = path.replace(WILDCARD_PATTERN, MATCH_ALL);
-  let keys: string[] = [];
-  let match: RegExpExecArray | null;
+): RegExp => (
+  new RegExp(
+    '^' +
+    path
+      // Remove hash
+      .split('#')[0]
+      // Remove query
+      .split('?')[0]
+      // Replace '**' with a matching group
+      .replace(WILDCARD_PATTERN, MATCH_ALL)
+      // Replace ':key' with a catching group
+      .replace(PARAMETER_PATTERN, CATCH_ALL)
+      // Match an optional trailing slash
+    + MATCH_TRAILING_SLASH
+    // If exact, only match completely
+    + (exact ? '$' : ''),
+    'i'
+  )
+);
 
-  // convert :param to a catch-all group
-  // and save the keys
-  while ((match = PARAMETER_PATTERN.exec(path)) != null) {
-    // match[0] is the entire segment, e. g. ':name'
-    path = path.replace(match[0], CATCH_ALL);
-    // match[1] is just the name of the parameter, e. g. 'name'
-    keys.push(match[1]);
-  }
+/**
+ * Retrieve the values embedded in a live path.
+ * @param pattern The pattern returned from `compile` 
+ * @param path The live path
+ */
+export const execute = (
+  pattern: RegExp,
+  path: string
+): string[] => (
+  (pattern.exec(path) || []).slice(1)
+);
 
-  if (!/\/?/.test(path)) {
-    path += MATCH_TRAILING_SLASH;
-  }
+const zip = (
+  a: any[],
+  b: any[]
+): any[2][] => (
+  a.map((v, i) => [v, b[i]])
+);
 
-  path = '^' + path;
-  if (exact) {
-    path += '$';
-  }
-
-  const pattern = new RegExp(path, 'i');
-  return {
-    pattern,
-    keys
-  };
-}
-
-export interface Executed {
-  [key: string]: string;
-}
+/**
+ * Convert an array of keys and an array of values into a Map.
+ * @param keys The keys returned from `parse`
+ * @param values The values returned from `execute`
+ */
+export const map = (
+  keys: string[],
+  values: string[]
+): Map<string,string> => (
+  new Map(zip(keys, values))
+);
 
 type Dictionary<T> = { [key: string]: T };
 
-export const execute = (
-  compiled: Compiled,
-  path: string
-): Executed => {
-  const values = (compiled.pattern.exec(path) || []).slice(1);
-  return compiled.keys.reduce(
-    (acc: Dictionary<string>, key, i) => ((acc[key] = values[i]), acc),
-    {}
+/**
+ * Convert an array of keys and an array of values into a plain object.
+ * @param keys The keys returned from `parse`
+ * @param values The values returned from `execute`
+ */
+export const object = (
+  keys: string[],
+  values: string[]
+): Dictionary<string> => (
+  keys.reduce(
+    (acc, key, i) => {
+      acc[key] = values[i];
+      return acc;
+    },
+    {} as Dictionary<string>
+  )
+);
+
+type Reducer = (keys: string[], values: string[]) => any;
+
+/**
+ * Parse and compile a path to a function that extracts values from a given string.
+ * @param path Any path
+ * @param exact Execute on complete matches
+ */
+export const program = (
+  path: string,
+  reducer: Reducer = object,
+  exact: boolean = false
+) => {
+  const keys = parse(path);
+  const pattern = compile(path, exact);
+  return (str: string) => reducer(
+    keys,
+    execute(pattern, str)
   );
 }
