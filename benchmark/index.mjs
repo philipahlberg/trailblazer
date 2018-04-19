@@ -1,19 +1,39 @@
 import Benchmark from 'benchmark';
-import { compile, execute } from '../dist/index.mjs';
+import {
+  parse,
+  compile,
+  execute,
+  program,
+  object,
+  map
+} from '../dist/index.mjs';
 
 const suite = new Benchmark.Suite();
-
-const compiled = compile('/:abc/:def');
+const pattern = compile('/:abc/:def');
+const readAsObject = program('/:abc/:def', object);
+const readAsMap = program('/:abc/:def', map);
 
 suite
-  .add('compile (string)', () => {
+  .add('parse', () => {
+    parse('/:a/:b/:c');
+  })
+  .add('compile', () => {
     compile('/:abc/:def');
   })
-  .add('compile (string, boolean)', () => {
+  .add('compile (exact)', () => {
     compile('/:abc/:def', true);
   })
   .add('execute', () => {
-    execute(compiled, '/abc/def');
+    execute(pattern, '/abc/def');
+  })
+  .add('program [compilation]', () => {
+    program('/:abc/:def', object);
+  })
+  .add('program (object) [execution]', () => {
+    readAsObject('/abc/def');
+  })
+  .add('program (map) [execution]', () => {
+    readAsMap('/abc/def');
   })
   .on('cycle', (event) => {
     console.log(String(event.target));
