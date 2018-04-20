@@ -116,14 +116,5 @@ const program = (path, reducer = object, exact = false) => {
     const pattern = compile(path, exact);
     return (string) => reducer(keys, execute(pattern, string));
 };
-var index = {
-    parse,
-    compile,
-    execute,
-    map,
-    object,
-    program
-};
 
-export default index;
 export { parse, compile, execute, map, object, program };
