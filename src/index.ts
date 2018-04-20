@@ -174,12 +174,3 @@ export const program = (
     execute(pattern, string)
   );
 }
-
-export default {
-  parse,
-  compile,
-  execute,
-  map,
-  object,
-  program
-}
