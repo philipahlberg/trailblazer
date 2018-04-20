@@ -38,7 +38,9 @@ export default [
       typescript({
         typescript: transpiler
       }),
-      minify()
+      minify({
+        toplevel: true
+      })
     ]
   }
 ]
