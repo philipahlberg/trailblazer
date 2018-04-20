@@ -1,18 +1,18 @@
 import { parse } from '../dist/index.js';
 
 describe('parse', () => {
-  it('is empty', () => {
+  it('returns an empty array if no parameters are encoded', () => {
     const keys = parse('/');
     expect(keys).to.be.an('array');
     expect(keys).to.be.empty;
   });
 
-  it('contains a key', () => {
+  it('returns a single key', () => {
     const keys = parse('/:param');
     expect(keys).to.deep.equal(['param']);
   });
 
-  it('contains multiple keys', () => {
+  it('returns multiple keys', () => {
     const keys = parse('/:a/:b/:c');
     expect(keys).to.deep.equal(['a', 'b', 'c']);
   });
