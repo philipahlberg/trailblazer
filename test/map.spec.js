@@ -19,7 +19,6 @@ describe('map', () => {
 
   it('creates a map from two different size arrays', () => {
     const m = map(['one', 'two'], ['three']);
-
     expect(keys(m))
       .to.have.members(['one', 'two']);
     expect(values(m))
