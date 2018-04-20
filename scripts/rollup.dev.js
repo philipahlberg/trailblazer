@@ -1,6 +1,5 @@
-import resolve from 'rollup-plugin-node-resolve';
-import ts from 'rollup-plugin-typescript';
-import typescript from 'typescript';
+import typescript from 'rollup-plugin-typescript';
+import transpiler from 'typescript';
 
 export default {
   input: './src/index.ts',
@@ -9,7 +8,8 @@ export default {
     format: 'es'
   },
   plugins: [
-    ts({typescript}),
-    resolve()
+    typescript({
+      typescript: transpiler
+    })
   ]
 }
