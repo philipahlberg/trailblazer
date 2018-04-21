@@ -1,7 +1,3 @@
-/**
- * The following three expressions are strings because they are used
- * as segments in paths, not as individual expressions.
- */
 // replaces wildcards
 const MATCH_ALL = '[^/?#]*';
 // replaces parameters
@@ -10,10 +6,6 @@ const CATCH_ALL = '([^/?#]+)';
 // (i. e. optional trailing slash)
 // appended to the end of the expression
 const MATCH_TRAILING_SLASH = '(?:[/]?(?=$))?';
-/**
- * The following two expressions are RegExp instances because they are used
- * to find expressions that should be replaced.
- */
 // matches '**'
 const WILDCARD_PATTERN = /\*\*/g;
 // matches ':param' and captures 'param'
@@ -23,7 +15,7 @@ const PARAMETER_PATTERN = /:([^\/?#]+)/g;
  * @example
  * parse('/:a/:b/:c'); // => ['a', 'b', 'c']
  *
- * @param path The path declaration
+ * @param path A path declaration
  */
 const parse = (path) => {
     let keys = [];
@@ -39,12 +31,12 @@ const parse = (path) => {
  * any superset of the given path or only match equal segment-length paths.
  *
  * @example
- * compile('/:a').test('/a'); // => true
+ * compile('/:a').test('/b'); // => true
  * compile('/:a').test('/a/b'); // => true
- * compile(':a', true).test('/a'); // => true
- * compile(':a', true).test('/a/b'); // => false
+ * compile('/:a', true).test('/a'); // => true
+ * compile('/:a', true).test('/a/b'); // => false
  *
- * @param path The path declaration
+ * @param path A path declaration
  * @param exact If `true`, the resulting expression will only match
  * 1:1 (instead of matching any superset of the given path).
  */
@@ -108,10 +100,10 @@ const object = (keys, values) => (keys.reduce((acc, key, i) => {
  * const toMap = program('/:a/:b', map);
  * toMap('/some/path'); // => Map {'a' => 'some', 'b' => 'path'}
  *
- * @param path Any path
+ * @param path A path declaration
  * @param exact Execute on complete matches
  */
-const program = (path, reducer = object, exact = false) => {
+const program = (path, reducer, exact = false) => {
     const keys = parse(path);
     const pattern = compile(path, exact);
     return (string) => reducer(keys, execute(pattern, string));

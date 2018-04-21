@@ -1,15 +1,3 @@
-// replaces wildcards
-const MATCH_ALL = '[^/?#]*';
-// replaces parameters
-const CATCH_ALL = '([^/?#]+)';
-// only matches the slash if nothing follows
-// (i. e. optional trailing slash)
-// appended to the end of the expression
-const MATCH_TRAILING_SLASH = '(?:[/]?(?=$))?';
-// matches '**'
-const WILDCARD_PATTERN = /\*\*/g;
-// matches ':param' and captures 'param'
-const PARAMETER_PATTERN = /:([^\/?#]+)/g;
 /**
  * Extract the keys in a path declaration.
  * @example
@@ -17,14 +5,7 @@ const PARAMETER_PATTERN = /:([^\/?#]+)/g;
  *
  * @param path A path declaration
  */
-const parse = (path) => {
-    let keys = [];
-    let match;
-    while ((match = PARAMETER_PATTERN.exec(path)) != null) {
-        keys.push(match[1]);
-    }
-    return keys;
-};
+export declare const parse: (path: string) => string[];
 /**
  * Create a regular expression from a path with (optional) encoded parameter keys in it.
  * `exact` determines if the resulting expression should match
@@ -40,16 +21,7 @@ const parse = (path) => {
  * @param exact If `true`, the resulting expression will only match
  * 1:1 (instead of matching any superset of the given path).
  */
-const compile = (path, exact = false) => (new RegExp('^' +
-    path
-        // Replace '**' with a matching group
-        .replace(WILDCARD_PATTERN, MATCH_ALL)
-        // Replace ':key' with a catching group
-        .replace(PARAMETER_PATTERN, CATCH_ALL)
-    // Match an optional trailing slash
-    + MATCH_TRAILING_SLASH
-    // If exact, only match completely
-    + (exact ? '$' : ''), 'i'));
+export declare const compile: (path: string, exact?: boolean) => RegExp;
 /**
  * Retrieve the values embedded in a string using a compiled regular expression.
  *
@@ -60,8 +32,7 @@ const compile = (path, exact = false) => (new RegExp('^' +
  * @param pattern The pattern returned from `compile`
  * @param path The live path
  */
-const execute = (pattern, path) => ((pattern.exec(path) || []).slice(1));
-const zip = (a, b) => (a.map((v, i) => [v, b[i]]));
+export declare const execute: (pattern: RegExp, path: string) => string[];
 /**
  * Convert an array of keys and an array of values into a Map.
  * @example
@@ -73,7 +44,7 @@ const zip = (a, b) => (a.map((v, i) => [v, b[i]]));
  * @param keys The keys returned from `parse`
  * @param values The values returned from `execute`
  */
-const map = (keys, values) => (new Map(zip(keys, values)));
+export declare const map: (keys: string[], values: string[]) => Map<string, string>;
 /**
  * Convert an array of keys and an array of values into a plain object.
  * @example
@@ -85,10 +56,9 @@ const map = (keys, values) => (new Map(zip(keys, values)));
  * @param keys The keys returned from `parse`
  * @param values The values returned from `execute`
  */
-const object = (keys, values) => (keys.reduce((acc, key, i) => {
-    acc[key] = values[i];
-    return acc;
-}, {}));
+export declare const object: (keys: string[], values: string[]) => {
+    [key: string]: string;
+};
 /**
  * Parse and compile a path to a function that extracts values from a given string.
  * @example
@@ -103,10 +73,4 @@ const object = (keys, values) => (keys.reduce((acc, key, i) => {
  * @param path A path declaration
  * @param exact Execute on complete matches
  */
-const program = (path, reducer, exact = false) => {
-    const keys = parse(path);
-    const pattern = compile(path, exact);
-    return (string) => reducer(keys, execute(pattern, string));
-};
-
-export { parse, compile, execute, map, object, program };
+export declare const program: <T>(path: string, reducer: (keys: string[], values: string[]) => T, exact?: boolean) => (string: string) => T;
