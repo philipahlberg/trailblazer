@@ -1,8 +1,3 @@
-/**
- * The following three expressions are strings because they are used
- * as segments in paths, not as individual expressions.
- */
-
 // replaces wildcards
 const MATCH_ALL = '[^/?#]*';
 // replaces parameters
@@ -12,11 +7,6 @@ const CATCH_ALL = '([^/?#]+)';
 // (i. e. optional trailing slash)
 // appended to the end of the expression
 const MATCH_TRAILING_SLASH = '(?:[/]?(?=$))?';
-
-/**
- * The following two expressions are RegExp instances because they are used
- * to find expressions that should be replaced.
- */
 
 // matches '**'
 const WILDCARD_PATTERN = /\*\*/g;
@@ -29,7 +19,7 @@ const PARAMETER_PATTERN = /:([^\/?#]+)/g;
  * @example
  * parse('/:a/:b/:c'); // => ['a', 'b', 'c']
  * 
- * @param path The path declaration
+ * @param path A path declaration
  */
 export const parse = (
   path: string
@@ -48,12 +38,12 @@ export const parse = (
  * any superset of the given path or only match equal segment-length paths.
  * 
  * @example
- * compile('/:a').test('/a'); // => true
+ * compile('/:a').test('/b'); // => true
  * compile('/:a').test('/a/b'); // => true
- * compile(':a', true).test('/a'); // => true
- * compile(':a', true).test('/a/b'); // => false
+ * compile('/:a', true).test('/a'); // => true
+ * compile('/:a', true).test('/a/b'); // => false
  * 
- * @param path The path declaration
+ * @param path A path declaration
  * @param exact If `true`, the resulting expression will only match
  * 1:1 (instead of matching any superset of the given path).
  */
@@ -89,17 +79,15 @@ export const compile = (
 export const execute = (
   pattern: RegExp,
   path: string
-): string[] => (
+) => (
   (pattern.exec(path) || []).slice(1)
 );
 
-type Tuple<K, V> = [K, V];
-
-const zip = (
-  a: any[],
-  b: any[]
-): Tuple<any, any>[] => (
-  a.map((v, i): Tuple<any, any> => [v, b[i]])
+const zip = <K, V>(
+  a: K[],
+  b: V[]
+) => (
+  a.map((v, i): [K, V] => [v, b[i]])
 );
 
 /**
@@ -116,11 +104,13 @@ const zip = (
 export const map = (
   keys: string[],
   values: string[]
-): Map<string,string> => (
+) => (
   new Map(zip(keys, values))
 );
 
-type Dictionary<T> = { [key: string]: T };
+type Dictionary<T> = {
+  [key: string]: T
+};
 
 /**
  * Convert an array of keys and an array of values into a plain object.
@@ -146,7 +136,8 @@ export const object = (
   )
 );
 
-type Reducer = (keys: string[], values: string[]) => any;
+type Reducer<T> = (keys: string[], values: string[]) => T;
+type Executable<T> = (string: string) => T;
 
 /**
  * Parse and compile a path to a function that extracts values from a given string.
@@ -159,14 +150,14 @@ type Reducer = (keys: string[], values: string[]) => any;
  * const toMap = program('/:a/:b', map);
  * toMap('/some/path'); // => Map {'a' => 'some', 'b' => 'path'}
  * 
- * @param path Any path
+ * @param path A path declaration
  * @param exact Execute on complete matches
  */
-export const program = (
+export const program = <T>(
   path: string,
-  reducer: Reducer = object,
+  reducer: Reducer<T>,
   exact: boolean = false
-) => {
+): Executable<T> => {
   const keys = parse(path);
   const pattern = compile(path, exact);
   return (string: string) => reducer(

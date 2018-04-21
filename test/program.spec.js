@@ -1,12 +1,6 @@
 import { program, map, object } from '../dist/index.js';
 
 describe('program', () => {
-  it('applies object reducer by default', () => {
-    const fn = program('/:a/:b/:c');
-    const entries = fn('/1/2/3');
-    expect(entries).to.deep.equal({ a: '1', b: '2', c: '3' });
-  });
-
   it('applies object reducer', () => {
     const fn = program('/:a/:b/:c', object);
     const entries = fn('/1/2/3');
