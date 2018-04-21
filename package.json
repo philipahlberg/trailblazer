@@ -1,6 +1,6 @@
 {
   "name": "expressionist",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/philipahlberg/expressionist.git",
