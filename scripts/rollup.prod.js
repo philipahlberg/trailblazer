@@ -18,18 +18,6 @@ export default [
   {
     input: './src/index.ts',
     output: {
-      file: './dist/index.mjs',
-      format: 'es'
-    },
-    plugins: [
-      typescript({
-        typescript: transpiler
-      })
-    ]
-  },
-  {
-    input: './src/index.ts',
-    output: {
       file: './dist/index.min.js',
       format: 'es',
       sourcemap: true
