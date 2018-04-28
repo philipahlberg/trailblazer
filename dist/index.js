@@ -1,15 +1,43 @@
-// replaces wildcards
+/**
+ * Matches anything until the next '/', '?' or '#'.
+ * Replacement for wildcards in path declarations when building a RegExp.
+ */
 const MATCH_ALL = '[^/?#]*';
-// replaces parameters
+/**
+ * Captures anything until the next '/', '?' or '#'.
+ * Replacement for parameters in path declarations when building a RegExp.
+ */
 const CATCH_ALL = '([^/?#]+)';
-// only matches the slash if nothing follows
-// (i. e. optional trailing slash)
-// appended to the end of the expression
+/**
+ * Matches an optional trailing '/', if it is not followed by anything.
+ * Appended to the end of path declarations when building a RegExp.
+ *
+ * Notes:
+ * - Does nothing on its own
+ * - Does nothing without a trailing '$'
+ *
+ * @example
+ * const pattern = new RegExp('^/abc' + MATCH_TRAILING_SLASH + '$');
+ * pattern.test('/abc'); // => true
+ * pattern.test('/abc/'); // => true
+ * pattern.test('/abc/def'); // => false
+ *
+ */
 const MATCH_TRAILING_SLASH = '(?:[/]?(?=$))?';
-// matches '**'
+/**
+ * Matches '**'.
+ *
+ * Determines where to swap in a match-all pattern.
+ */
 const WILDCARD_PATTERN = /\*\*/g;
-// matches ':param' and captures 'param'
+/**
+ * Matches ':param' and captures 'param'.
+ *
+ * Determines where to swap in a catch-all pattern, or
+ * extracts parameter names from a path.
+ */
 const PARAMETER_PATTERN = /:([^\/?#]+)/g;
+
 /**
  * Extract the keys in a path declaration.
  * @example
@@ -25,14 +53,17 @@ const parse = (path) => {
     }
     return keys;
 };
+
 /**
- * Create a regular expression from a path with (optional) encoded parameter keys in it.
+ * Create a regular expression from a path with (optional) encoded parameters in it.
  * `exact` determines if the resulting expression should match
  * any superset of the given path or only match equal segment-length paths.
  *
  * @example
+ * // not exact
  * compile('/:a').test('/b'); // => true
  * compile('/:a').test('/a/b'); // => true
+ * // exact
  * compile('/:a', true).test('/a'); // => true
  * compile('/:a', true).test('/a/b'); // => false
  *
@@ -50,8 +81,10 @@ const compile = (path, exact = false) => (new RegExp('^' +
     + MATCH_TRAILING_SLASH
     // If exact, only match completely
     + (exact ? '$' : ''), 'i'));
+
 /**
- * Retrieve the values embedded in a string using a compiled regular expression.
+ * Retrieve the values embedded in a string using a
+ * regular expression obtained from `compile`.
  *
  * @example
  * const pattern = compile('/:a');
@@ -61,9 +94,11 @@ const compile = (path, exact = false) => (new RegExp('^' +
  * @param path The live path
  */
 const execute = (pattern, path) => ((pattern.exec(path) || []).slice(1));
+
 const zip = (a, b) => (a.map((v, i) => [v, b[i]]));
 /**
  * Convert an array of keys and an array of values into a Map.
+ *
  * @example
  * const keys = parse('/:a/:b');
  * const pattern = compile('/:a/:b');
@@ -74,6 +109,7 @@ const zip = (a, b) => (a.map((v, i) => [v, b[i]]));
  * @param values The values returned from `execute`
  */
 const map = (keys, values) => (new Map(zip(keys, values)));
+
 /**
  * Convert an array of keys and an array of values into a plain object.
  * @example
@@ -89,8 +125,10 @@ const object = (keys, values) => (keys.reduce((acc, key, i) => {
     acc[key] = values[i];
     return acc;
 }, {}));
+
 /**
  * Parse and compile a path to a function that extracts values from a given string.
+ *
  * @example
  * import { object, map } from 'expressionist';
  *

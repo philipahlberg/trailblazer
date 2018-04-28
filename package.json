@@ -17,8 +17,7 @@
     "dev": "concurrently -n \"rollup,karma\" \"npm run build:watch\" \"npm run test:watch\"",
     "test": "karma start scripts/karma.prod.js",
     "test:watch": "karma start scripts/karma.dev.js",
-    "prebuild": "rmdir /s /q dist",
-    "build": "rollup -c scripts/rollup.prod.js && copy dist\\index.js dist\\index.mjs && tsc --emitDeclarationOnly",
+    "build": "rollup -c scripts/rollup.prod.js && tsc --emitDeclarationOnly",
     "build:watch": "rollup -c scripts/rollup.dev.js -w",
     "bench": "node --experimental-modules --allow-natives-syntax benchmark/index.mjs"
   },
