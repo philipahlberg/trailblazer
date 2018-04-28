@@ -1,20 +1,18 @@
 {
   "name": "@philipahlberg/expressionist",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/philipahlberg/expressionist.git",
   "author": "philipahlberg <23071488+philipahlberg@users.noreply.github.com>",
   "license": "MIT",
   "files": [
-    "dist/index.js",
-    "dist/index.mjs",
-    "dist/index.d.ts",
+    "dist",
     "README.md"
   ],
   "scripts": {
-    "start": "npm run dev",
-    "dev": "concurrently -n \"rollup,karma\" \"npm run build:watch\" \"npm run test:watch\"",
+    "start": "npm run test:watch",
+    "dev": "npm run test:watch",
     "test": "karma start scripts/karma.prod.js",
     "test:watch": "karma start scripts/karma.dev.js",
     "build": "rollup -c scripts/rollup.prod.js && tsc --emitDeclarationOnly",
