@@ -55,23 +55,23 @@ describe('compile', () => {
       expect(pattern.test('/1')).to.be.false;
     });
 
-    it('does not ignore query', () => {
+    it('ignores query', () => {
       const pattern = compile('/abc', true);
-      expect(pattern.test('/abc?q=123')).to.be.false;
+      expect(pattern.test('/abc?q=123')).to.be.true;
       expect(pattern.test('/def?q=123')).to.be.false;
       expect(pattern.test('/abc/def?q=123')).to.be.false;
     });
   
-    it('does not ignore hash', () => {
+    it('ignores hash', () => {
       const pattern = compile('/abc', true);
-      expect(pattern.test('/abc#hash')).to.be.false;
+      expect(pattern.test('/abc#hash')).to.be.true;
       expect(pattern.test('/def#hash')).to.be.false;
       expect(pattern.test('/abc/def#hash')).to.be.false;
     });
   
-    it('does not ignore query and hash', () => {
+    it('ignores both query and hash', () => {
       const pattern = compile('/abc', true);
-      expect(pattern.test('/abc?q=123#hash')).to.be.false;
+      expect(pattern.test('/abc?q=123#hash')).to.be.true;
       expect(pattern.test('/def?q=123#hash')).to.be.false;
       expect(pattern.test('/abc/def?q=123#hash')).to.be.false;
     });

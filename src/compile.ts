@@ -3,7 +3,9 @@ import {
   CATCH_ALL,
   WILDCARD_PATTERN,
   PARAMETER_PATTERN,
-  MATCH_TRAILING_SLASH
+  MATCH_TRAILING_SLASH,
+  MATCH_TRAILING_QUERY,
+  MATCH_TRAILING_HASH
 } from './constants';
 
 /**
@@ -37,7 +39,11 @@ export const compile = (
       // Match an optional trailing slash
     + MATCH_TRAILING_SLASH
     // If exact, only match completely
-    + (exact ? '$' : ''),
+    + (
+      exact
+        ? MATCH_TRAILING_QUERY + MATCH_TRAILING_HASH + '$'
+        : ''
+      ),
     'i'
   )
 );

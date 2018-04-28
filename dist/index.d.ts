@@ -1,6 +1,6 @@
-export { parse } from './lib/parse';
-export { compile } from './lib/compile';
-export { execute } from './lib/execute';
-export { map } from './lib/map';
-export { object } from './lib/object';
-export { program } from './lib/program';
+export { parse } from './parse';
+export { compile } from './compile';
+export { execute } from './execute';
+export { map } from './map';
+export { object } from './object';
+export { program } from './program';

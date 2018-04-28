@@ -1,8 +1,3 @@
-/*
-  Expressionist v0.1.0 (2018)
-  https://github.com/philipahlberg/expressionist
-  Released under MIT License.
-*/
 /**
  * Matches anything until the next '/', '?' or '#'.
  * Replacement for wildcards in path declarations when building a RegExp.
@@ -29,6 +24,14 @@ const CATCH_ALL = '([^/?#]+)';
  *
  */
 const MATCH_TRAILING_SLASH = '(?:[/]?(?=$))?';
+/**
+ * Matches an optional query string.
+ */
+const MATCH_TRAILING_QUERY = '(?:\\?.*)?';
+/**
+ * Matches an optional hash string.
+ */
+const MATCH_TRAILING_HASH = '(?:#.*)?';
 /**
  * Matches '**'.
  *
@@ -85,7 +88,9 @@ const compile = (path, exact = false) => (new RegExp('^' +
     // Match an optional trailing slash
     + MATCH_TRAILING_SLASH
     // If exact, only match completely
-    + (exact ? '$' : ''), 'i'));
+    + (exact
+        ? MATCH_TRAILING_QUERY + MATCH_TRAILING_HASH + '$'
+        : ''), 'i'));
 
 /**
  * Retrieve the values embedded in a string using a

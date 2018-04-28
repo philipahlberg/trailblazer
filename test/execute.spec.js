@@ -82,19 +82,19 @@ describe('execute', () => {
       expect(values).to.be.empty;
     });
   
-    it('respects query', () => {
+    it('ignores query', () => {
       const values = exact('/:a/:b/:c', '/1/2/3?q=123');
-      expect(values).to.be.empty;
+      expect(values).to.deep.equal(['1', '2', '3']);
     });
   
-    it('respects hash', () => {
+    it('ignores hash', () => {
       const values = exact('/:a/:b/:c', '/1/2/3#hash');
-      expect(values).to.be.empty;
+      expect(values).to.deep.equal(['1', '2', '3']);
     });
   
-    it('respects query and hash', () => {
+    it('ignores query and hash', () => {
       const values = exact('/:a/:b/:c', '/1/2/3?q=123#hash');
-      expect(values).to.be.empty;
+      expect(values).to.deep.equal(['1', '2', '3']);
     });
   });
 });
