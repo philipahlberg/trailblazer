@@ -12,12 +12,12 @@ const zip = <K, V>(
  * const keys = parse('/:a/:b');
  * const pattern = compile('/:a/:b');
  * const values = execute(pattern, '/some/path');
- * map(keys, values); // => Map {'a' => 'some', 'b' => 'path'}
+ * toMap(keys, values); // => Map {'a' => 'some', 'b' => 'path'}
  * 
  * @param keys The keys returned from `parse`
  * @param values The values returned from `execute`
  */
-export const map = (
+export const toMap = (
   keys: string[],
   values: string[]
 ): Map<string, string> => (

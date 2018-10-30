@@ -1,16 +1,16 @@
-import { object } from '../dist/index.js';
+import { toObject } from '../dist/index.js';
 
 const keys = o => Object.keys(o);
 const values = o => Object.values(o);
 
-describe('object', () => {
+describe('toObject', () => {
   it('creates an object from two empty arrays', () => {
-    const o = object([], []);
+    const o = toObject([], []);
     expect(o).to.be.empty;
   });
 
   it('creates an object from two equal size arrays', () => {
-    const o = object(['one', 'two'], ['three', 'four']);
+    const o = toObject(['one', 'two'], ['three', 'four']);
     expect(keys(o))
       .to.have.members(['one', 'two']);
     expect(values(o))
@@ -18,7 +18,7 @@ describe('object', () => {
   });
 
   it('creates an object from two different size arrays', () => {
-    const o = object(['one', 'two'], ['three']);
+    const o = toObject(['one', 'two'], ['three']);
     expect(keys(o))
       .to.have.members(['one', 'two']);
     expect(values(o))

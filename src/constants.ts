@@ -39,14 +39,12 @@ export const MATCH_TRAILING_HASH = '(?:#.*)?';
 
 /**
  * Matches '**'.
- * 
  * Determines where to swap in a match-all pattern.
  */
 export const WILDCARD_PATTERN = /\*\*/g;
 
 /**
  * Matches ':param' and captures 'param'.
- * 
  * Determines where to swap in a catch-all pattern, or
  * extracts parameter names from a path.
  */

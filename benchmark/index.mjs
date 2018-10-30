@@ -10,8 +10,7 @@ import {
 
 const suite = new Benchmark.Suite();
 const pattern = compile('/:abc/:def');
-const readAsObject = program('/:abc/:def', object);
-const readAsMap = program('/:abc/:def', map);
+const fn = program('/:abc/:def');
 
 suite
   .add('parse', () => {
@@ -27,13 +26,13 @@ suite
     execute(pattern, '/abc/def');
   })
   .add('program [compilation]', () => {
-    program('/:abc/:def', object);
+    program('/:abc/:def');
   })
-  .add('program (object) [execution]', () => {
-    readAsObject('/abc/def');
+  .add('program (exact) [compilation]', () => {
+    program('/:abc/:def', true);
   })
   .add('program (map) [execution]', () => {
-    readAsMap('/abc/def');
+    fn('/abc/def');
   })
   .on('cycle', (event) => {
     console.log(String(event.target));
