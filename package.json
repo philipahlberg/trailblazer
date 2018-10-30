@@ -7,8 +7,7 @@
   "author": "philipahlberg <23071488+philipahlberg@users.noreply.github.com>",
   "license": "MIT",
   "files": [
-    "dist",
-    "README.md"
+    "dist"
   ],
   "scripts": {
     "start": "npm run test:watch",
