@@ -1,6 +1,5 @@
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript';
-import tsc from 'typescript';
 
 export default [
   {
@@ -16,9 +15,7 @@ export default [
       }
     ],
     plugins: [
-      typescript({
-        typescript: tsc
-      })
+      typescript()
     ]
   },
   {
@@ -29,9 +26,7 @@ export default [
       sourcemap: true
     },
     plugins: [
-      typescript({
-        typescript: tsc
-      }),
+      typescript(),
       terser({
         module: true,
         ecma: 8
