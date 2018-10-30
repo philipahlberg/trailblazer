@@ -1,19 +1,27 @@
 module.exports = (config) => {
   config.set({
     basePath: '../',
-    frameworks: ['mocha', 'chai'],
+    frameworks: [
+      'mocha',
+      'chai'
+    ],
     files: [
       { pattern: 'dist/index.js', type: 'module' },
       { pattern: 'test/*.spec.js', type: 'module' }
     ],
-    browsers: ['ChromeHeadless', 'FirefoxHeadless', 'Edge'],
+    browsers: [
+      'ChromeHeadless',
+      'FirefoxHeadless'
+    ],
     customLaunchers: {
       FirefoxHeadless: {
         base: 'Firefox',
         flags: ['-headless'],
       },
     },
-    reporters: ['progress'],
+    reporters: [
+      'dots'
+    ],
     port: 1234,
     colors: true,
     logLevel: config.LOG_WARN,
