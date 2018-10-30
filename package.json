@@ -26,7 +26,6 @@
   "devDependencies": {
     "benchmark": "^2.1.4",
     "chai": "^4.2.0",
-    "concurrently": "^3.5.1",
     "http-server": "^0.11.1",
     "karma": "^3.1.1",
     "karma-chai": "^0.1.0",
