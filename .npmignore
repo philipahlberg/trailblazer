@@ -1,6 +1,0 @@
-benchmark
-scripts
-src
-.gitignore
-tsconfig.json
-yarn.lock
