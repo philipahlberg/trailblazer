@@ -1,14 +1,6 @@
-import minify from 'rollup-plugin-uglify';
+import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript';
 import tsc from 'typescript';
-import pkg from '../package.json';
-
-const banner = `/*
-  Expressionist v${pkg.version}
-  https://github.com/philipahlberg/expressionist
-  https://www.npmjs.com/package/@philipahlberg/expressionist
-  Released under MIT License.
-*/`;
 
 export default [
   {
@@ -16,13 +8,11 @@ export default [
     output: [
       {
         file: './dist/index.js',
-        format: 'es',
-        // banner
+        format: 'es'
       },
       {
         file: './dist/index.mjs',
-        format: 'es',
-        // banner
+        format: 'es'
       }
     ],
     plugins: [
@@ -36,15 +26,15 @@ export default [
     output: {
       file: './dist/index.min.js',
       format: 'es',
-      sourcemap: true,
-      banner
+      sourcemap: true
     },
     plugins: [
       typescript({
         typescript: tsc
       }),
-      minify({
-        toplevel: true
+      terser({
+        module: true,
+        ecma: 8
       })
     ]
   }
