@@ -1,5 +1,6 @@
 /**
  * Convert an array of keys and an array of values into a plain object.
+ * 
  * @example
  * const keys = parse('/:a/:b');
  * const pattern = compile('/:a/:b');
