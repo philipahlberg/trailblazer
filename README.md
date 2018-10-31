@@ -14,6 +14,7 @@ Returns a function that extracts values from a given string.
 
 ```js
 import expressionist from '@philipahlberg/expressionist';
+
 const fn = expressionst('/:a/:b');
 const map = fn('/some/path');
 map.get('a'); // => 'some'
