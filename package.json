@@ -20,7 +20,8 @@
     "docs": "npm run docs:build && npm run docs:serve",
     "docs:build": "typedoc src/ --exclude \"**/constants.ts\" --out docs/",
     "docs:serve": "http-server ./docs",
-    "bench": "node --experimental-modules --allow-natives-syntax benchmark/index.mjs"
+    "perf": "node --experimental-modules --allow-natives-syntax perf/optimizations.mjs",
+    "bench": "node --experimental-modules perf/benchmark.mjs"
   },
   "devDependencies": {
     "benchmark": "^2.1.4",

@@ -1,16 +1,9 @@
 import Benchmark from 'benchmark';
-import {
-  parse,
-  compile,
-  execute,
-  program,
-  object,
-  map
-} from '../dist/index.mjs';
+import { parse, compile, execute, expressionist } from '../dist/index.mjs';
 
 const suite = new Benchmark.Suite();
 const pattern = compile('/:abc/:def');
-const fn = program('/:abc/:def');
+const fn = expressionist('/:abc/:def');
 
 suite
   .add('parse', () => {

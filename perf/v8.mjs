@@ -1,6 +1,6 @@
 export const GetOptimizationStatus = (fn) => {
   let bits = %GetOptimizationStatus(fn);
-  const flag = (n) => (bits & 1 << n) !== 0;
+  const flag = (n) => (bits & n) === n;
 
   return {
     function: flag(0),
