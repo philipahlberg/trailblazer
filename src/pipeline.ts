@@ -3,14 +3,12 @@ import { compile } from './compile';
 import { execute } from './execute';
 import { toMap } from './toMap';
 
-type Expressionist = (path: string) => Map<string, string>;
-
 /**
  * Parse and compile a path.
  * Returns a function that extracts values from a given string.
  * 
  * @example
- * import expressionist from 'expressionist';
+ * import { pipeline } from 'trailblazer';
  * 
  * const fn = expressionst('/:a/:b');
  * const map = fn('/some/path');
@@ -20,10 +18,10 @@ type Expressionist = (path: string) => Map<string, string>;
  * @param path A path declaration
  * @param exact Execute on complete matches
  */
-export const expressionist = (
+export const pipeline = (
   path: string,
   exact: boolean = false
-): Expressionist => {
+) => {
   const keys = parse(path);
   const pattern = compile(path, exact);
   return (string: string) => toMap(
@@ -31,5 +29,3 @@ export const expressionist = (
     execute(pattern, string)
   );
 }
-
-export default expressionist;
