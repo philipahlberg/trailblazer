@@ -1,27 +1,29 @@
+import { strict as assert } from 'assert';
 import { toMap } from '../dist/index.js';
-
-const keys = m => [...m.keys()];
-const values = m => [...m.values()];
 
 describe('toMap', () => {
   it('creates a map from two empty arrays', () => {
     const m = toMap([], []);
-    expect(m).to.be.empty;
+    assert.deepEqual([...m.entries()], []);
   });
 
   it('creates a map from two equal size arrays', () => {
-    const m = toMap(['one', 'two'], ['three', 'four']);
-    expect(keys(m))
-      .to.have.members(['one', 'two']);
-    expect(values(m))
-      .to.have.members(['three', 'four']);
+    const m = toMap(
+      [1, 2],
+      ['one', 'two']
+    );
+
+    assert.equal(m.get(1), 'one');
+    assert.equal(m.get(2), 'two');
   });
 
   it('creates a map from two different size arrays', () => {
-    const m = toMap(['one', 'two'], ['three']);
-    expect(keys(m))
-      .to.have.members(['one', 'two']);
-    expect(values(m))
-      .to.have.members(['three', undefined]);
+    const m = toMap(
+      [1, 2],
+      ['one']
+    );
+
+    assert.equal(m.get(1), 'one');
+    assert.equal(m.get(2), undefined);
   });
 });

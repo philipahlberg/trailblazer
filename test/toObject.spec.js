@@ -1,27 +1,25 @@
+import { strict as assert } from 'assert';
 import { toObject } from '../dist/index.js';
-
-const keys = o => Object.keys(o);
-const values = o => Object.values(o);
 
 describe('toObject', () => {
   it('creates an object from two empty arrays', () => {
     const o = toObject([], []);
-    expect(o).to.be.empty;
+    assert.deepEqual(o, {});
   });
 
   it('creates an object from two equal size arrays', () => {
-    const o = toObject(['one', 'two'], ['three', 'four']);
-    expect(keys(o))
-      .to.have.members(['one', 'two']);
-    expect(values(o))
-      .to.have.members(['three', 'four']);
+    const o = toObject(['1', '2'], ['one', 'two']);
+    assert.deepEqual(o, {
+      '1': 'one',
+      '2': 'two'
+    });
   });
 
   it('creates an object from two different size arrays', () => {
-    const o = toObject(['one', 'two'], ['three']);
-    expect(keys(o))
-      .to.have.members(['one', 'two']);
-    expect(values(o))
-      .to.have.members(['three', undefined]);
+    const o = toObject(['1', '2'], ['one']);
+    assert.deepEqual(o, {
+      '1': 'one',
+      '2': undefined
+    });
   });
 });
