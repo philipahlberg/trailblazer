@@ -14,6 +14,7 @@ npm install trailblazer
 
 ### parse(path: string): string[]
 - Extract the keys in a path declaration.
+
 ```js
 import { parse } from 'trailblazer';
 
@@ -61,6 +62,7 @@ toMap(keys, values); // => Map {'a' => 'some', 'b' => 'path'}
 
 ### toObject(keys: string[], values: string[]): { [key: string]: string }
 - Convert an array of keys and an array of values into a plain object.
+
 ```js
 import { parse, compile, execute, toObject } from 'trailblazer';
 
