@@ -1,9 +1,8 @@
 import Benchmark from 'benchmark';
-import { parse, compile, execute, expressionist } from '../dist/index.mjs';
+import pathToRegexp from 'path-to-regexp';
+import { parse, compile } from '../dist/index.mjs';
 
 const suite = new Benchmark.Suite();
-const pattern = compile('/:abc/:def');
-const fn = expressionist('/:abc/:def');
 
 suite
   .add('parse', () => {
@@ -15,17 +14,8 @@ suite
   .add('compile (exact)', () => {
     compile('/:abc/:def', true);
   })
-  .add('execute', () => {
-    execute(pattern, '/abc/def');
-  })
-  .add('program [compilation]', () => {
-    program('/:abc/:def');
-  })
-  .add('program (exact) [compilation]', () => {
-    program('/:abc/:def', true);
-  })
-  .add('program (map) [execution]', () => {
-    fn('/abc/def');
+  .add('pathToRegexp', () => {
+    pathToRegexp('/:abc/:def')
   })
   .on('cycle', (event) => {
     console.log(String(event.target));
