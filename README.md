@@ -1,30 +1,21 @@
-# Expressionist
-`expressionist` is a minimalist implementation of a subset of `path-to-regexp` in less than 600b.
+# trailblazer
+Paths with `/:named/:parameters` in less than 600b.
+
+## Overview
+`trailblazer` is a minimalist regular expression-generator for paths with named parameters.
+Turn a path such as `/:foo` into a regular expression, extract the keys, retrieve matches from a string and combine into a `Map` or a plain object.
 
 ## Installation
 ```console
-npm install @philipahlberg/expressionist
+npm install trailblazer
 ```
 
 ## Usage
 
-### expressionist(path: string, exact?: boolean): (str: string) => Map<string, string>
--  Parse and compile a path.
-Returns a function that extracts values from a given string.
-
-```js
-import expressionist from '@philipahlberg/expressionist';
-
-const fn = expressionst('/:a/:b');
-const map = fn('/some/path');
-map.get('a'); // => 'some'
-map.get('b'); // => 'path'
-```
-
 ### parse(path: string): string[]
 - Extract the keys in a path declaration.
 ```js
-import { parse } from '@philipahlberg/expressionist';
+import { parse } from 'trailblazer';
 
 parse('/:foo/:bar'); // ['foo', 'bar']
 ```
@@ -35,7 +26,7 @@ parse('/:foo/:bar'); // ['foo', 'bar']
 any superset of the given path or only match equal segment-length paths.
 
 ```js
-import { compile } from '@philipahlberg/expressionist';
+import { compile } from 'trailblazer';
 
 // not exact
 compile('/:a').test('/b'); // => true
@@ -50,7 +41,7 @@ compile('/:a', true).test('/a/b'); // => false
 regular expression obtained from `compile`.
 
 ```js
-import { compile, execute } from '@philipahlberg/expressionist';
+import { compile, execute } from 'trailblazer';
 
 const pattern = compile('/:a');
 execute(pattern, '/value'); // => ['value']
@@ -60,7 +51,7 @@ execute(pattern, '/value'); // => ['value']
 - Convert an array of keys and an array of values into a Map.
 
 ```js
-import { parse, compile, execute, toMap } from '@philipahlberg/expressionist';
+import { parse, compile, execute, toMap } from 'trailblazer';
 
 const keys = parse('/:a/:b');
 const pattern = compile('/:a/:b');
@@ -71,10 +62,23 @@ toMap(keys, values); // => Map {'a' => 'some', 'b' => 'path'}
 ### toObject(keys: string[], values: string[]): { [key: string]: string }
 - Convert an array of keys and an array of values into a plain object.
 ```js
-import { parse, compile, execute, toObject } from '@philipahlberg/expressionist';
+import { parse, compile, execute, toObject } from 'trailblazer';
 
 const keys = parse('/:a/:b');
 const pattern = compile('/:a/:b');
 const values = execute(pattern, '/some/path');
 toObject(keys, values); // => { a: 'some', b: 'path' }
+```
+
+### pipeline(path: string, exact?: boolean): (str: string) => Map<string, string>
+-  Parse and compile a path.
+Returns a function that extracts values from a given string.
+
+```js
+import { pipeline } from 'trailblazer';
+
+const fn = pipeline('/:a/:b');
+const map = fn('/some/path');
+map.get('a'); // => 'some'
+map.get('b'); // => 'path'
 ```
