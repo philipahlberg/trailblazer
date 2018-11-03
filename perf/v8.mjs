@@ -1,18 +1,26 @@
-export const GetOptimizationStatus = (fn) => {
-  let bits = %GetOptimizationStatus(fn);
-  const flag = (n) => (bits & n) === n;
+const GetOptimizationStatus = new Function('fn',
+  '%GetOptimizationStatus(fn)'
+);
+
+const UnmaskAll = (fn) => {
+  const bits = GetOptimizationStatus(fn);
+  const Unmask = (n) => ((bits >> n) & 1) === 1;
 
   return {
-    function: flag(0),
-    never_optimized: flag(1),
-    always_optimized: flag(2),
-    maybe_deoptimized: flag(3),
-    optimized: flag(4),
-    optimized_by_turbofan: flag(5),
-    interpreted: flag(6),
-    marked_for_optimization: flag(7),
-    marked_for_concurrent_optimization: flag(8),
-    optimizing_concurrently: flag(9),
-    executing: flag(10)
+    IsFunction: Unmask(0),
+    NeverOptimized: Unmask(1),
+    AlwaysOptimized: Unmask(2),
+    MaybeDeoptimized: Unmask(3),
+    Optimized: Unmask(4),
+    OptimizedByTurbofan: Unmask(5),
+    Interpreted: Unmask(6),
+    MarkedForOptimization: Unmask(7),
+    MarkedForConcurrentOptimization: Unmask(8),
+    OptimizingConcurrently: Unmask(9),
+    IsExecuting: Unmask(10),
+    TopmostFrameIsTurboFanned: Unmask(11),
+    LiteMode: Unmask(12)
   };
 }
+
+export default UnmaskAll;

@@ -1,10 +1,18 @@
-import { GetOptimizationStatus } from './v8.mjs';
-import { parse, compile, execute, expressionist, toObject, toMap } from '../dist/index.mjs';
+import GetOptimizationStatus from './v8.mjs';
+import { parse, compile } from '../dist/index.mjs';
 
-GetOptimizationStatus(compile);
+const isOptimized = fn => {
+  return GetOptimizationStatus(fn).Optimized;
+}
+
+for (let i = 0; i < 10e3; i++) {
+  parse('/:foo');
+}
+
+console.log(isOptimized(parse));
 
 for (let i = 0; i < 10e3; i++) {
   compile('/:foo');
 }
 
-GetOptimizationStatus(compile);
+console.log(isOptimized(parse));
