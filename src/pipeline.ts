@@ -8,9 +8,7 @@ import { toMap } from './toMap';
  * Returns a function that extracts values from a given string.
  * 
  * @example
- * import { pipeline } from 'trailblazer';
- * 
- * const fn = expressionst('/:a/:b');
+ * const fn = pipeline('/:a/:b');
  * const map = fn('/some/path');
  * map.get('a'); // => 'some'
  * map.get('b'); // => 'path'
