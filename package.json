@@ -10,12 +10,9 @@
     "dist"
   ],
   "scripts": {
-    "start": "npm run test:watch",
-    "dev": "npm run test:watch",
     "test": "mocha -r esm -r chai test/index.js",
-    "build": "npm run build:types && npm run build:source",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:source": "rollup -c scripts/rollup.js",
+    "build": "tsc --emitDeclarationOnly && rollup -c",
+    "build:test": "rollup -c --configTest",
     "docs": "npm run docs:build && npm run docs:serve",
     "docs:build": "typedoc src/ --exclude \"**/constants.ts\" --out docs/",
     "docs:serve": "http-server ./docs",
@@ -34,6 +31,6 @@
     "rollup-plugin-typescript": "^1.0.0",
     "tslib": "^1.9.3",
     "typedoc": "^0.13.0",
-    "typescript": "^3.1.4"
+    "typescript": "^3.1.6"
   }
 }
