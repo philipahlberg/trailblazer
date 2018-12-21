@@ -18,25 +18,10 @@ describe('compile', () => {
       assert.equal(pattern.test('/1'), false);
     });
 
-    it('ignores query', () => {
-      const pattern = compile('/abc');
-      assert.equal(pattern.test('/abc?q=123'), true);
-      assert.equal(pattern.test('/def?q=123'), false);
-      assert.equal(pattern.test('/abc/def?q=123'), true);
-    });
-  
-    it('ignores hash', () => {
-      const pattern = compile('/abc');
-      assert.equal(pattern.test('/abc#hash'), true);
-      assert.equal(pattern.test('/def#hash'), false);
-      assert.equal(pattern.test('/abc/def#hash'), true);
-    });
-  
-    it('ignores query and hash', () => {
-      const pattern = compile('/abc');
-      assert.equal(pattern.test('/abc?q=123#hash'), true);
-      assert.equal(pattern.test('/def?q=123#hash'), false);
-      assert.equal(pattern.test('/abc/def?q=123#hash'), true);
+    it('matches a wildcard', () => {
+      const pattern = compile('/abc/**');
+      assert.equal(pattern.test('/abc'), false);
+      assert.equal(pattern.test('/abc/def'), true);
     });
   });
 
@@ -56,25 +41,10 @@ describe('compile', () => {
       assert.equal(pattern.test('/1'), false);
     });
 
-    it('ignores query', () => {
-      const pattern = compile('/abc', true);
-      assert.equal(pattern.test('/abc?q=123'), true);
-      assert.equal(pattern.test('/def?q=123'), false);
-      assert.equal(pattern.test('/abc/def?q=123'), false);
-    });
-  
-    it('ignores hash', () => {
-      const pattern = compile('/abc', true);
-      assert.equal(pattern.test('/abc#hash'), true);
-      assert.equal(pattern.test('/def#hash'), false);
-      assert.equal(pattern.test('/abc/def#hash'), false);
-    });
-  
-    it('ignores both query and hash', () => {
-      const pattern = compile('/abc', true);
-      assert.equal(pattern.test('/abc?q=123#hash'), true);
-      assert.equal(pattern.test('/def?q=123#hash'), false);
-      assert.equal(pattern.test('/abc/def?q=123#hash'), false);
+    it('matches a wildcard', () => {
+      const pattern = compile('/abc/**', true);
+      assert.equal(pattern.test('/abc'), false);
+      assert.equal(pattern.test('/abc/def'), true);
     });
   });
 });

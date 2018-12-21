@@ -35,21 +35,6 @@ describe('execute', () => {
       const values = loose('/:a/:b/:c', '/1/2/3/4');
       assert.deepEqual(values, ['1', '2', '3']);
     });
-  
-    it('ignores query', () => {
-      const values = loose('/:a/:b/:c', '/1/2/3?q=123');
-      assert.deepEqual(values, ['1', '2', '3']);
-    });
-  
-    it('ignores hash', () => {
-      const values = loose('/:a/:b/:c', '/1/2/3#hash');
-      assert.deepEqual(values, ['1', '2', '3']);
-    });
-  
-    it('ignores query and hash', () => {
-      const values = loose('/:a/:b/:c', '/1/2/3?q=123#hash');
-      assert.deepEqual(values, ['1', '2', '3']);
-    });
   });
 
   describe('exact', () => {
@@ -81,21 +66,6 @@ describe('execute', () => {
     it('returns no parameters if it does not match (superset)', () => {
       const values = exact('/:a/:b/:c', '/1/2/3/4');
       assert.deepEqual(values, []);
-    });
-  
-    it('ignores query', () => {
-      const values = exact('/:a/:b/:c', '/1/2/3?q=123');
-      assert.deepEqual(values, ['1', '2', '3']);
-    });
-  
-    it('ignores hash', () => {
-      const values = exact('/:a/:b/:c', '/1/2/3#hash');
-      assert.deepEqual(values, ['1', '2', '3']);
-    });
-  
-    it('ignores query and hash', () => {
-      const values = exact('/:a/:b/:c', '/1/2/3?q=123#hash');
-      assert.deepEqual(values, ['1', '2', '3']);
     });
   });
 });

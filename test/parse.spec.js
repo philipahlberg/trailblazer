@@ -16,19 +16,4 @@ describe('parse', () => {
     const keys = parse('/:a/:b/:c');
     assert.deepEqual(keys, ['a', 'b', 'c']);
   });
-
-  it('ignores query', () => {
-    const keys = parse('/:a/:b/:c?q=123');
-    assert.deepEqual(keys, ['a', 'b', 'c']);
-  });
-
-  it('ignores hash', () => {
-    const keys = parse('/:a/:b/:c#hash');
-    assert.deepEqual(keys, ['a', 'b', 'c']);
-  });
-
-  it('ignores query and hash', () => {
-    const keys = parse('/:a/:b/:c?q=123#hash');
-    assert.deepEqual(keys, ['a', 'b', 'c']);
-  });
 });
