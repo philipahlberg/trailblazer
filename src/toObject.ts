@@ -1,3 +1,5 @@
+type Dictionary = { [key: string]: string };
+
 /**
  * Convert an array of keys and an array of values into a plain object.
  * 
@@ -13,12 +15,11 @@
 export const toObject = (
   keys: string[],
   values: string[]
-): { [key: string]: string } => (
-  keys.reduce(
-    (acc, key, i) => {
-      acc[key] = values[i];
-      return acc;
-    },
-    {} as { [key: string]: string }
-  )
-);
+): Dictionary => {
+  let object: Dictionary = {};
+  for (let i = 0; i < keys.length; i++) {
+    object[keys[i]] = values[i];
+  }
+  return object;
+}
+
