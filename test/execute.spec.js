@@ -1,7 +1,7 @@
 import { strict as assert } from 'assert';
 import { compile, execute } from '../dist/index.js';
 
-const loose = (path, str) => execute(compile(path), str);
+const loose = (path, str) => execute(compile(path, false), str);
 const exact = (path, str) => execute(compile(path, true), str);
 
 describe('execute', () => {
