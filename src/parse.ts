@@ -1,4 +1,4 @@
-import { PARAMETER_PATTERN } from './constants';
+import { FIND_PARAMETER } from './constants';
 
 /**
  * Extract the keys in a path declaration.
@@ -13,7 +13,7 @@ export const parse = (
 ): string[] => {
   let keys: string[] = [];
   let match;
-  while ((match = PARAMETER_PATTERN.exec(path)) != null) {
+  while ((match = FIND_PARAMETER.exec(path)) != null) {
     keys.push(match[1]);
   }
   return keys;

@@ -1,8 +1,8 @@
 import {
-  MATCH_ALL,
-  CATCH_ALL,
-  WILDCARD_PATTERN,
-  PARAMETER_PATTERN,
+  FIND_PARAMETER,
+  REPLACE_PARAMETER,
+  FIND_WILDCARD,
+  REPLACE_WILDCARD,
   MATCH_TRAILING_SLASH,
   MATCH_TRAILING_QUERY,
   MATCH_TRAILING_HASH
@@ -33,9 +33,9 @@ export const compile = (
     '^' +
     path
       // Replace '**' with a matching group
-      .replace(WILDCARD_PATTERN, MATCH_ALL)
+      .replace(FIND_WILDCARD, REPLACE_WILDCARD)
       // Replace ':key' with a catching group
-      .replace(PARAMETER_PATTERN, CATCH_ALL)
+      .replace(FIND_PARAMETER, REPLACE_PARAMETER)
       // Match an optional trailing slash
     + MATCH_TRAILING_SLASH
     // If exact, only match completely
