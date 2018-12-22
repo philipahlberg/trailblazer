@@ -31,8 +31,8 @@ export const compile = (
   let pattern = '^';
   for (let i = 0; i < segments.length; i++) {
     const segment = segments[i];
-    if (segment.startsWith(':')) {
-      if (segment.endsWith('?')) {
+    if (/^:/.test(segment)) {
+      if (/\?$/.test(segment)) {
         pattern += OPTIONAL_PARAMETER;
       } else {
         pattern += PARAMETER;
