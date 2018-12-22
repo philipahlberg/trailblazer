@@ -12,10 +12,17 @@ describe('compile', () => {
 
     it('matches parameters', () => {
       const pattern = compile('/:a/:b/:c', false);
-      assert.equal(pattern.test('/1/2/3/4'), true);
-      assert.equal(pattern.test('/1/2/3'), true);
-      assert.equal(pattern.test('/1/2'), false);
       assert.equal(pattern.test('/1'), false);
+      assert.equal(pattern.test('/1/2'), false);
+      assert.equal(pattern.test('/1/2/3'), true);
+      assert.equal(pattern.test('/1/2/3/4'), true);
+    });
+
+    it('matches optional parameters', () => {
+      const pattern = compile('/:a/:b?');
+      assert.equal(pattern.test('/'), false);
+      assert.equal(pattern.test('/1'), true);
+      assert.equal(pattern.test('/1/2'), true);
     });
 
     it('matches a wildcard', () => {
@@ -35,10 +42,18 @@ describe('compile', () => {
 
     it('matches parameters', () => {
       const pattern = compile('/:a/:b/:c', true);
-      assert.equal(pattern.test('/1/2/3/4'), false);
-      assert.equal(pattern.test('/1/2/3'), true);
-      assert.equal(pattern.test('/1/2'), false);
       assert.equal(pattern.test('/1'), false);
+      assert.equal(pattern.test('/1/2'), false);
+      assert.equal(pattern.test('/1/2/3'), true);
+      assert.equal(pattern.test('/1/2/3/4'), false);
+    });
+
+    it('matches optional parameters', () => {
+      const pattern = compile('/:a/:b?', true);
+      assert.equal(pattern.test('/'), false);
+      assert.equal(pattern.test('/1'), true);
+      assert.equal(pattern.test('/1/2'), true);
+      assert.equal(pattern.test('/1/2/3'), false);
     });
 
     it('matches a wildcard', () => {

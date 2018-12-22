@@ -16,4 +16,9 @@ describe('parse', () => {
     const keys = parse('/:a/:b/:c');
     assert.deepEqual(keys, ['a', 'b', 'c']);
   });
+
+  it('returns an optional key', () => {
+    const keys = parse('/:a?');
+    assert.deepEqual(keys, ['a']);
+  });
 });
