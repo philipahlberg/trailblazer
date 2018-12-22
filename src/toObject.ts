@@ -16,10 +16,9 @@ export const toObject = (
   keys: string[],
   values: string[]
 ): Dictionary => {
-  let object: Dictionary = {};
+  const object: Dictionary = {};
   for (let i = 0; i < keys.length; i++) {
     object[keys[i]] = values[i];
   }
   return object;
 }
-
