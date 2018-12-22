@@ -1,10 +1,3 @@
-const zip = <K, V>(
-  a: K[],
-  b: V[]
-) => (
-  a.map((v, i): [K, V] => [v, b[i]])
-);
-
 /**
  * Convert an array of keys and an array of values into a Map.
  * 
@@ -20,6 +13,10 @@ const zip = <K, V>(
 export const toMap = (
   keys: string[],
   values: string[]
-): Map<string, string> => (
-  new Map(zip(keys, values))
-);
+): Map<string, string> => {
+  const map = new Map<string, string>();
+  for (let i = 0; i < keys.length; i++) {
+    map.set(keys[i], values[i]);
+  }
+  return map;
+}
