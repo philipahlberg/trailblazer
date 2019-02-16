@@ -11,26 +11,19 @@
   ],
   "scripts": {
     "test": "mocha -r esm -r chai test/index.js",
-    "build": "tsc --emitDeclarationOnly && rollup -c",
-    "build:test": "rollup -c --configTest",
-    "docs": "npm run docs:build && npm run docs:serve",
-    "docs:build": "typedoc src/ --exclude \"**/constants.ts\" --out docs/",
-    "docs:serve": "http-server ./docs",
-    "perf": "node --experimental-modules --allow-natives-syntax perf/optimizations.mjs",
-    "bench": "node --experimental-modules perf/benchmark.mjs"
+    "build": "tsc --emitDeclarationOnly && rollup -c rollup.release.js",
+    "build:release": "tsc --emitDeclarationOnly && rollup -c rollup.release.js",
+    "build:debug": "rollup -c rollup.debug.js"
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
     "chai": "^4.2.0",
     "esm": "^3.0.84",
-    "http-server": "^0.11.1",
     "mocha": "^5.2.0",
-    "path-to-regexp": "^2.4.0",
     "rollup": "^0.67.0",
     "rollup-plugin-terser": "^3.0.0",
     "rollup-plugin-typescript": "^1.0.0",
     "tslib": "^1.9.3",
-    "typedoc": "^0.13.0",
     "typescript": "^3.1.6"
   }
 }
