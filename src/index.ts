@@ -10,13 +10,13 @@ const QUESTION_MARK = 63;
  * - `sensitive`: When `true`, the `RegExp` will be case sensitive.
  *    - Default: `false`
  * 
- * - `strict`: When `true` the `RegExp` allows an optional trailing slash to match.
+ * - `strict`: When `true`, the `RegExp` allows an optional trailing slash to match.
  *    - Default: `false`
  * 
- * - `start`: When `true` the `RegExp` will match from the beginning of the string.
+ * - `start`: When `true`, the `RegExp` will match from the beginning of the string.
  *    - Default: `true`
  * 
- * - `end`: When `true` the `RegExp` will match to the end of the string.
+ * - `end`: When `true`, the `RegExp` will match to the end of the string.
  *    - Default: `true`
  */
 export type Options = {
@@ -24,16 +24,16 @@ export type Options = {
   strict?: boolean;
   start?: boolean;
   end?: boolean;
-};
+}
 
 /**
- * - `pattern` is a RegExp that can be used to test path matches.
- * - `keys` is an array of the key names in the original path.
+ * - `pattern`: The `RegExp` created for the input path.
+ * - `keys`: An array of key names extracted from the input path.
  */
 export type Compile = {
   pattern: RegExp;
   keys: string[];
-};
+}
 
 /**
  * Create a regular expression from `path` and extract the key names.
@@ -62,7 +62,7 @@ export type Compile = {
  * @param path A path declaration
  * @param options An options object
  */
-export default (path: string, options: Options): Compile => {
+export const compile = (path: string, options: Options): Compile => {
   const {
     sensitive = false,
     strict = false,
