@@ -11,11 +11,11 @@
     "dist"
   ],
   "scripts": {
-    "test": "npm run build:debug && mocha -r esm -r chai tests/index.js",
-    "bench": "npm run build:release && node -r esm benches/index.js",
-    "build": "npm run build:debug",
-    "build:debug": "rollup -c rollup.debug.js",
-    "build:release": "tsc --emitDeclarationOnly && rollup -c rollup.release.js"
+    "build": "npm run build:js && npm run build:ts",
+    "build:js": "rollup -c rollup.config.js",
+    "build:ts": "tsc --emitDeclarationOnly",
+    "test": "npm run build:js && mocha -r esm -r chai tests/index.js",
+    "bench": "npm run build:js && node -r esm benches/index.js"
   },
   "devDependencies": {
     "@types/benchmark": "^1.0.31",

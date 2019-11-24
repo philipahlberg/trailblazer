@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { compile } from '../dist/index.js';
+import { compile } from '../dist/index.min.mjs';
 
 const tests = [
   ['/', {

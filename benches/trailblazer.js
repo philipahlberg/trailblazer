@@ -1,8 +1,8 @@
-import trailblazer from '../dist/index.js';
+import { compile } from '../dist/index.min.mjs';
 
 export default [
   ['[trailblazer] static', () => {
-    trailblazer('/abc', {
+    compile('/abc', {
       sensitive: false,
       strict: false,
       start: true,
@@ -10,7 +10,7 @@ export default [
     });
   }],
   ['[trailblazer] parameter', () => {
-    trailblazer('/:abc', {
+    compile('/:abc', {
       sensitive: false,
       strict: false,
       start: true,
@@ -18,7 +18,7 @@ export default [
     });
   }],
   ['[trailblazer] optional', () => {
-    trailblazer('/:abc?', {
+    compile('/:abc?', {
       sensitive: false,
       strict: false,
       start: true,
@@ -26,7 +26,7 @@ export default [
     });
   }],
   ['[trailblazer] mixed', () => {
-    trailblazer('/abc/:def/:ghi?', {
+    compile('/abc/:def/:ghi?', {
       sensitive: false,
       strict: false,
       start: true,
