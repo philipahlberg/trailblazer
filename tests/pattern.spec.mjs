@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { assertEqual } from 'windtunnel';
 import { compile } from '../dist/index.min.mjs';
 
 const tests = [
@@ -634,7 +634,7 @@ const tests = [
   ]]
 ];
 
-describe('pattern', () => {
+export function pattern() {
   for (const [path, options, cases] of tests) {
     const conf = Object.entries(options)
       .filter(([_, on]) => on)
@@ -643,13 +643,10 @@ describe('pattern', () => {
 
     const name = `${path} { ${conf} }`;
 
-    describe(name, () => {
-      const { pattern } = compile(path, options);
-      for (const [input, output] of cases) {
-        it(input, () => {
-          expect((pattern.exec(input) || []).slice()).to.deep.equal(output);
-        });
-      }
-    });
+    const { pattern } = compile(path, options);
+    for (const [input, expected] of cases) {
+      const actual = pattern.exec(input) || [];
+      assertEqual(actual, expected);
+    }
   }
-});
+}

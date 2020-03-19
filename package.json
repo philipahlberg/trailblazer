@@ -14,7 +14,7 @@
     "build": "npm run build:js && npm run build:ts",
     "build:js": "rollup -c rollup.config.js",
     "build:ts": "tsc --emitDeclarationOnly",
-    "test": "npm run build:js && mocha -r esm -r chai tests/index.js",
+    "test": "windtunnel ./tests/index.mjs",
     "bench": "npm run build:js && node -r esm benches/index.js"
   },
   "devDependencies": {

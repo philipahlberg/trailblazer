@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { assertEqual } from 'windtunnel';
 import { compile } from '../dist/index.min.mjs';
 
 const tests = [
@@ -15,16 +15,15 @@ const tests = [
   ['/foo/:bar/:baz?', ['bar', 'baz']]
 ];
 
-describe('keys', () => {
+export function keys() {
   for (const [path, expected] of tests) {
-    it(path, () => {
-      const { keys } = compile(path, {
-        sensitive: false,
-        strict: false,
-        start: false,
-        end: false
-      });
-      expect(keys).to.deep.equal(expected);
+    const { keys } = compile(path, {
+      sensitive: false,
+      strict: false,
+      start: false,
+      end: false
     });
+
+    assertEqual(keys, expected);
   }
-});
+}
