@@ -1,4 +1,4 @@
-import { assertEqual } from 'windtunnel';
+import { assertEqual } from '@windtunnel/assert';
 import { compile } from '../dist/index.min.mjs';
 
 const tests = [

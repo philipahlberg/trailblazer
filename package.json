@@ -22,6 +22,8 @@
     "@types/chai": "^4.2.5",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.11",
+    "@windtunnel/assert": "^0.1.0",
+    "@windtunnel/cli": "^0.1.0",
     "benchmark": "^2.1.4",
     "chai": "^4.2.0",
     "esm": "^3.2.25",
