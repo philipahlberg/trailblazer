@@ -47,10 +47,20 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.11.tgz#bec2961975888d964196bf0016a2f984d793d3ce"
   integrity sha512-O+x6uIpa6oMNTkPuHDa9MhMMehlxLAd5QcOvKRjAFsBVpeFWTOPnXbDvILvFgFFZfQ1xh1EZi1FbXxUix+zpsQ==
 
+"@windtunnel/assert@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@windtunnel/assert/-/assert-0.1.0.tgz#0d7ae932499c7915c107927069c46e2847f4a8cf"
+  integrity sha512-gh7PhpQbHUB+SqhanjD0aV/MqazLj0rTjj4/16qPcGzjFjXjTZRP4En2N4v3mxVgN2oEofkG8tlca/lbB8FPCA==
+
+"@windtunnel/cli@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@windtunnel/cli/-/cli-0.1.0.tgz#c2d6273a488733d964cccaec1033e5f79a642566"
+  integrity sha512-VxKC6AeIzQaq+qEIZfcX8lHYDJEFhuBWSy4zLP/Oq4JJzU5T1GfKJmZD5eMyXi/ssX4ZPCgU7vwvaOIIR9vNiQ==
+
 acorn@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.1.0.tgz#949d36f2c292535da602283586c2477c57eb2d6c"
-  integrity sha512-kL5CuoXA/dgxlBbVrflsflzQ3PAas7RYZB52NOm/6839iVYJgKMJ3cQJD+t2i5+qFa8h3MDpEOJiS64E8JLnSQ==
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.3.1.tgz#85010754db53c3fbaf3b9ea3e083aa5c5d147ffd"
+  integrity sha512-tLc0wSnatxAQHVHUapaHdz72pi9KUyHjq5KyHjGg9Y8Ifdc79pTh2XvI6I1/chZbnM7QtNKzh66ooDogPZSleA==
 
 ansi-colors@3.2.3:
   version "3.2.3"
