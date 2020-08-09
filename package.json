@@ -11,25 +11,23 @@
     "dist"
   ],
   "scripts": {
-    "build": "npm run build:js && npm run build:ts",
-    "build:js": "rollup -c rollup.config.js",
-    "build:ts": "tsc --emitDeclarationOnly",
-    "test": "windtunnel ./tests/index.mjs",
-    "bench": "npm run build:js && node -r esm benches/index.js"
+    "build": "rollup -c rollup.config.js",
+    "test": "windtunnel test ./tests/index.mjs",
+    "bench": "npm run build && node -r esm benches/index.js"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@rollup/plugin-typescript": "^5.0.2",
     "@types/benchmark": "^1.0.31",
-    "@types/node": "^12.12.11",
-    "@windtunnel/assert": "^0.1.0",
-    "@windtunnel/cli": "^0.1.0",
+    "@types/node": "^14.0.27",
+    "@windtunnel/assert": "^0.5.0",
+    "@windtunnel/cli": "^0.5.0",
     "benchmark": "^2.1.4",
     "esm": "^3.2.25",
     "path-to-regexp": "^6.1.0",
     "regexparam": "^1.3.0",
-    "rollup": "^1.27.4",
-    "rollup-plugin-terser": "^5.1.2",
-    "rollup-plugin-typescript": "^1.0.1",
-    "tslib": "^1.10.0",
+    "rollup": "^2.23.1",
+    "tslib": "^2.0.1",
     "typescript": "^3.7.2"
   },
   "dependencies": {}

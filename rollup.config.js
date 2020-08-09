@@ -1,22 +1,19 @@
-import typescript from 'rollup-plugin-typescript';
-import { terser } from "rollup-plugin-terser";
+import module from 'module';
+import resolve from '@rollup/plugin-node-resolve';
+import typescript from '@rollup/plugin-typescript';
 
 export default {
   input: 'src/index.ts',
-  output: [
-    {
-      file: 'dist/index.min.js',
-      format: 'cjs',
-    },
-    {
-      file: 'dist/index.min.mjs',
-      format: 'es',
-    }
-  ],
+  output: {
+    dir: 'dist',
+    format: 'esm',
+    entryFileNames: '[name].mjs',
+  },
   plugins: [
     typescript(),
-    terser({
-      toplevel: true
-    })
-  ]
+    resolve({
+      preferBuiltins: true,
+    }),
+  ],
+  external: module.builtinModules,
 };
