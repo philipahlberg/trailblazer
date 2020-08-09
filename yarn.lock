@@ -54,28 +54,28 @@
   dependencies:
     "@types/node" "*"
 
-"@windtunnel/assert@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@windtunnel/assert/-/assert-0.5.0.tgz#885adec67c77bfd67bcf158177f305cbe0b3c8d6"
-  integrity sha512-OigpFaFV0F9M7YV/zQLClud9wOxPOdA9c003wyq/ASp7ASNs6mrXXZQIuxjPFTSROv7QxFacPa3j8WuuqMdDug==
+"@windtunnel/assert@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@windtunnel/assert/-/assert-0.5.1.tgz#37e2337c23d3d2fcf5757d0e124d804f916df467"
+  integrity sha512-NGbrEWHdlHbuoP8EbZC+giKk84HmE3DEIFOdpTB7mCK8AH4kNXW29zUmmY76kD5HmrHC+E9VuyAi3tLOPwOKRA==
 
-"@windtunnel/cli@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@windtunnel/cli/-/cli-0.5.0.tgz#2220370de42679127eefb7e4abfb20694430c19f"
-  integrity sha512-I/vWdPnvLTP1/vIAjA83Yn64OIgrrBKheD+GoronqrlfeLTxzLWLOmESitJlx0l324IG05DxXz10SsHFU+4iBA==
+"@windtunnel/cli@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@windtunnel/cli/-/cli-0.5.1.tgz#593b2022eb40da464468b6ebeb9e60c4297e0022"
+  integrity sha512-+MCNfvbUUa66v/haV5mQdZaM1CwpRKyjd/A0oxwZK0tZpiKQ031IBmhDRy5uR+3Bi24W6OTE6gd4isecXae1Kg==
   dependencies:
-    "@windtunnel/colors" "0.5.0"
-    "@windtunnel/core" "0.5.0"
+    "@windtunnel/colors" "0.5.1"
+    "@windtunnel/core" "0.5.1"
 
-"@windtunnel/colors@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@windtunnel/colors/-/colors-0.5.0.tgz#5f5dd46a5207fada5392074801c58b387cd31a99"
-  integrity sha512-5b/RHjKij9SKVey+GDyW3CDw2WTwvRxzGJC0EzjiOlFXeLTgdqiYlQz9JZTpLf6yO3PQKIgCg+QLBI2onJx7fQ==
+"@windtunnel/colors@0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@windtunnel/colors/-/colors-0.5.1.tgz#98b837bfc0fb6b1b666cda9074065b09a57aec3b"
+  integrity sha512-s7ZGpSe3Q5uEWCVwpTkQq3/B/aM/FalBMRqD2eP6YNDLdutMlwl5ls4R2RWPl1EX8lY4IvHVHFCaw7kfUSHcog==
 
-"@windtunnel/core@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@windtunnel/core/-/core-0.5.0.tgz#25c07fe10df474dbddea7e3821a66aa5dd3e768e"
-  integrity sha512-NmNkE/CnP+fOvu3oyDLLmMwRFUQ6Lj8mO7VTdzSMQohOTgDyeOpG8/CmOtAeiFbTtWsmRRyXAZWFzLDbseRQhQ==
+"@windtunnel/core@0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@windtunnel/core/-/core-0.5.1.tgz#f88f713253992594accb7e5be52cb17d8de44170"
+  integrity sha512-muSsPqvKwwEmYnIxECZ3hrGWLGoncXq20k4Sg198qRWSn5cMMUeYOMF8I6kdlR0vnWJrp51MbBI0Ro/R9qBHlA==
   dependencies:
     nurburgring "^0.1.1"
 
