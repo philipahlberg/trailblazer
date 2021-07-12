@@ -1,5 +1,5 @@
 import { assertEqual } from '@windtunnel/assert';
-import { compile } from '../dist/index.min.mjs';
+import { compile } from '../dist/index.mjs';
 
 const tests = [
   ['/', []],
