@@ -29,6 +29,5 @@
     "rollup": "^2.53.1",
     "tslib": "^2.3.0",
     "typescript": "^4.3.5"
-  },
-  "dependencies": {}
+  }
 }
