@@ -1,8 +1,8 @@
 {
   "name": "trailblazer",
   "version": "6.0.0",
-  "main": "dist/index.min.js",
-  "module": "dist/index.min.mjs",
+  "type": "module",
+  "main": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/philipahlberg/trailblazer.git",
   "author": "philipahlberg <23071488+philipahlberg@users.noreply.github.com>",
