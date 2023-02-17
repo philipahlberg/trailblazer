@@ -16,17 +16,17 @@
     "bench": "npm run build && node benches/index.js"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^13.0.0",
-    "@rollup/plugin-typescript": "^8.2.1",
-    "@types/benchmark": "^2.1.1",
-    "@types/node": "^16.3.1",
-    "@windtunnel/assert": "^0.5.1",
-    "@windtunnel/cli": "^0.5.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/benchmark": "^2.1.2",
+    "@types/node": "^18.13.0",
+    "@windtunnel/assert": "^0.6.2",
+    "@windtunnel/cli": "^0.6.2",
     "benchmark": "^2.1.4",
     "path-to-regexp": "^6.2.0",
-    "regexparam": "^2.0.0",
-    "rollup": "^2.53.1",
-    "tslib": "^2.3.0",
-    "typescript": "^4.3.5"
+    "regexparam": "^2.0.1",
+    "rollup": "^3.15.0",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
   }
 }
