@@ -84,7 +84,7 @@ export const compile = (path: string, options: Options): Compile => {
     } else if (segment === '*') {
       pattern += WILDCARD;
     } else {
-      pattern += '/' + segment;
+      pattern += `/${segment}`;
     }
   }
 

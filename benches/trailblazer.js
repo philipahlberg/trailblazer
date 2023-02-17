@@ -1,4 +1,4 @@
-import { compile } from '../dist/index.min.mjs';
+import { compile } from '../dist/index.mjs';
 
 export default [
   ['[trailblazer] static', () => {

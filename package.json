@@ -13,7 +13,7 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "test": "windtunnel test ./tests/index.mjs",
-    "bench": "npm run build && node -r esm benches/index.js"
+    "bench": "npm run build && node benches/index.js"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.0.0",
@@ -23,7 +23,6 @@
     "@windtunnel/assert": "^0.5.1",
     "@windtunnel/cli": "^0.5.1",
     "benchmark": "^2.1.4",
-    "esm": "^3.2.25",
     "path-to-regexp": "^6.2.0",
     "regexparam": "^2.0.0",
     "rollup": "^2.53.1",

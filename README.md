@@ -1,6 +1,6 @@
 # trailblazer
 `trailblazer` is a minimalist regular expression-generator for paths with named parameters.
-Turn a path such as `/:foo` into a regular expression and extract the keys.
+Turn a path such as `/:foo/:bar?` into a regular expression and extract the keys.
 
 ## Installation
 ```console

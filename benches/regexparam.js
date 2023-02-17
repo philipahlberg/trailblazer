@@ -1,16 +1,16 @@
-import regexparam from 'regexparam';
+import { parse } from 'regexparam';
 
 export default [
   ['[regexparam] static', () => {
-    regexparam('/abc');
+    parse('/abc');
   }],
   ['[regexparam] parameter', () => {
-    regexparam('/:abc');
+    parse('/:abc');
   }],
   ['[regexparam] optional', () => {
-    regexparam('/:abc?');
+    parse('/:abc?');
   }],
   ['[regexparam] mixed', () => {
-    regexparam('/abc/:def/:ghi?');
+    parse('/abc/:def/:ghi?');
   }]
 ];
